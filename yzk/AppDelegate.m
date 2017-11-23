@@ -11,7 +11,7 @@
 #import "BaseNavigationController.h"
 #import "AppDelegate+JKRRootViewController.h"
 @interface AppDelegate ()
-
+/*ceshi*/
 @end
 
 @implementation AppDelegate
