@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MainViewController.h"
+#import "BaseNavigationController.h"
+#import "AppDelegate+JKRRootViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,7 +19,43 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self setNavigationAndTabarForGlobal];
+
+    [self jkr_configRootViewController];
+
+    
     return YES;
+}
+/*!
+ * @abstract 自定义tabBar和导航栏颜色
+ */
+-(void)setNavigationAndTabarForGlobal
+{
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    //导航栏皮肤
+    navBar.barTintColor = [UIColor whiteColor];
+    NSDictionary *att = @{
+                          NSForegroundColorAttributeName:[UIColor blackColor],
+                          NSFontAttributeName : [UIFont systemFontOfSize:18.f]
+                          };
+    [navBar setTitleTextAttributes:att];
+    //获得UIBarButtonItem全局对象
+    UIBarButtonItem *item= [UIBarButtonItem appearance];
+    [item setTitleTextAttributes:att forState:UIControlStateNormal];
+    //设置全局返回按钮
+    UIImage * image=[[UIImage imageNamed:@"iconfont-gengduo"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    [item setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [item setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin)
+                                 forBarMetrics:UIBarMetricsDefault];
+    
+    //全局TabBarItem的字体颜色
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       NorGlobalColor, NSForegroundColorAttributeName,
+                                                       nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       GlobalColor, NSForegroundColorAttributeName,
+                                                       nil] forState:UIControlStateSelected];
+    
 }
 
 
